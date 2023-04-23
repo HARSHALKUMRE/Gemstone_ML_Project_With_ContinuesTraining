@@ -1,0 +1,13 @@
+# Environments
+.env
+.venv
+env/
+venv/
+
+# Distribution / packaging
+.Python
+build/
+eggs/
+.eggs/
+*.egg-info/
+*.egg
