@@ -25,7 +25,9 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         logging.info('Data Ingestion methods Starts')
         try:
-            df=pd.read_csv(r"G:/100-days-of-dl/Krish_Naik/FSDS_Ineuron_Course/projects/Gemstone_ML_Project_With_ContinuesTraining/notebooks/data/gemstone.csv")
+            cwd = os.getcwd()
+
+            df=pd.read_csv(f'{cwd}/notebooks/data/gemstone.csv')
             
             logging.info('Dataset read as pandas Dataframe')
             
