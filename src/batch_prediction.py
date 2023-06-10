@@ -38,7 +38,7 @@ class BatchPrediction:
             gemstone_estimator = PredictPipeline()
             for file_name in input_files:
                 data_file_path = os.path.join(self.batch_config.inbox_dir,file_name)
-                df:DataFrame = pd.read_csv(data_file_path).limit(1000)
+                df:DataFrame = pd.read_csv(data_file_path)
                 prediction_df = gemstone_estimator.predict(df)
                 prediction_file_path = os.path.join(self.batch_config.outbox_dir,f"{file_name}_{TIMESTAMP}")
                 prediction_df.to_csv(prediction_file_path)
