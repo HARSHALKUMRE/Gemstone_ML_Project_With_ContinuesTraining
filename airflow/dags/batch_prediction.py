@@ -5,6 +5,9 @@ import pendulum
 import os
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+from src.batch_prediction import BatchPredictionConfig, BatchPrediction
+
+config = BatchPredictionConfig()
 
 with DAG(
     'batch_prediction',
@@ -24,9 +27,9 @@ with DAG(
         os.system(f"aws s3 sync s3://{bucket_name}/inbox {config.inbox_dir}")
 
     def batch_prediction(**kwargs):
-        from gemstone.pipeline.batch_prediction import BatchPredictionConfig,GemstoneBatchPrediction
+        from src.batch_prediction import BatchPredictionConfig,BatchPrediction
         config = BatchPredictionConfig()
-        gemstone_batch_prediction = GemstoneBatchPrediction(batch_config=config)
+        gemstone_batch_prediction = BatchPrediction(batch_config=config)
         gemstone_batch_prediction.start_prediction()
        
     def upload_files(**kwargs):
@@ -53,4 +56,4 @@ with DAG(
 
     )
 
-download_input_files >> generate_prediction_files >> upload_prediction_files
+    download_input_files >> generate_prediction_files >> upload_prediction_files

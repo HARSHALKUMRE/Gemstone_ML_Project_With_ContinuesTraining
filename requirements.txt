@@ -1,8 +1,15 @@
 numpy
 pandas
-Flask
+matplotlib
+ipykernel
 scikit-learn
 seaborn
+catboost
+xgboost
+dill
+flask
+flask_cors
 apache-airflow
-
 -e .
+
+

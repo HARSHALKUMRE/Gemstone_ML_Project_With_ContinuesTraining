@@ -44,8 +44,8 @@ with DAG(
     def push_data_to_s3(**kwargs):
         import os
         bucket_name=os.getenv("BUCKET_NAME")
-        artifact_folder="/app/artifact"
-        os.system(f"aws s3 sync {artifact_folder} s3:/{bucket_name}/artifact")
+        artifact_folder="/app/artifacts"
+        os.system(f"aws s3 sync {artifact_folder} s3://{bucket_name}/artifacts")
         
         
         
