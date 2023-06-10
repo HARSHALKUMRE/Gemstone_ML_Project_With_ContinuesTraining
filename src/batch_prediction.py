@@ -41,7 +41,7 @@ class BatchPrediction:
                 df:DataFrame = pd.read_csv(data_file_path)
                 prediction_df = gemstone_estimator.predict(df)
                 prediction_file_path = os.path.join(self.batch_config.outbox_dir,f"{file_name}_{TIMESTAMP}")
-                prediction_df.to_csv(prediction_file_path)
+                pd.DataFrame(prediction_df).to_csv(prediction_file_path)
 
                 archive_file_path = os.path.join(self.batch_config.archive_dir,f"{file_name}_{TIMESTAMP}")
                 df.to_csv(archive_file_path)
