@@ -5,12 +5,14 @@ import pandas as pd
 from pandas import DataFrame
 from datetime import datetime
 from dataclasses import dataclass
+import os
+import sys
 
 TIMESTAMP = datetime.now().strftime("%Y%m%d_%H%M%S")
 
 @dataclass
 class BatchPredictionConfig:
-    inbox_dir = os.path.join("data","indox")
+    inbox_dir = os.path.join("data","inbox")
     outbox_dir = os.path.join("data","outbox")
     archive_dir = os.path.join("data","archive")
     os.makedirs(outbox_dir, exist_ok=True)
