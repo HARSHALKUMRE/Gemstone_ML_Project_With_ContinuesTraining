@@ -55,7 +55,7 @@ class ModelTrainer:
                 "AdaBoost Regressor": AdaBoostRegressor()
             }
 
-            model_report:dict = evaluate_models(xtrain,ytrain,xtest,ytest,models)
+            model_report:dict = evaluate_models(X_train,y_train,X_test,y_test,models)
 
             print(model_report)
             print('\n====================================================================================\n')
@@ -90,7 +90,7 @@ class ModelTrainer:
             rscv = RandomizedSearchCV(cbr , param_dist, scoring='r2', cv =5, n_jobs=-1)
 
             # Fit the model
-            rscv.fit(xtrain, ytrain)
+            rscv.fit(X_train, y_train)
 
             # Print the tuned parameters and score
             print(f'Best Catboost parameters : {rscv.best_params_}')
@@ -112,7 +112,7 @@ class ModelTrainer:
 
             # Fitting the cvmodel
             grid = GridSearchCV(knn, param_grid, cv=5, scoring='r2',n_jobs=-1)
-            grid.fit(xtrain, ytrain)
+            grid.fit(X_train, y_train)
 
             # Print the tuned parameters and score
             print(f'Best KNN Parameters : {grid.best_params_}')
@@ -127,9 +127,9 @@ class ModelTrainer:
 
             # Creating final Voting regressor
             er = VotingRegressor([('cbr',best_cbr),('xgb',XGBRegressor()),('knn',best_knn)], weights=[3,2,1])
-            er.fit(xtrain, ytrain)
+            er.fit(X_train, y_train)
             print('Final Model Evaluation :\n')
-            print_evaluated_results(xtrain,ytrain,xtest,ytest,er)
+            print_evaluated_results(X_train,y_train,X_test,y_test,er)
             logging.info('Voting Regressor Training Completed')
 
             save_object(
@@ -138,9 +138,9 @@ class ModelTrainer:
             )
             logging.info('Model pickle file saved')
             # Evaluating Ensemble Regressor (Voting Classifier on test data)
-            ytest_pred = er.predict(xtest)
+            ytest_pred = er.predict(X_test)
 
-            mae, rmse, r2 = model_metrics(ytest, ytest_pred)
+            mae, rmse, r2 = model_metrics(y_test, ytest_pred)
             logging.info(f'Test MAE : {mae}')
             logging.info(f'Test RMSE : {rmse}')
             logging.info(f'Test R2 Score : {r2}')

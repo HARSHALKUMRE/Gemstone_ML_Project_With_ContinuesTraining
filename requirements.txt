@@ -5,11 +5,11 @@ ipykernel
 scikit-learn
 seaborn
 catboost
-xgboost
+xgboost==1.7.4
 dill
 flask
 flask_cors
 apache-airflow
--e .
+#-e .
 
 
