@@ -10,6 +10,6 @@ dill
 flask
 flask_cors
 apache-airflow
-#-e .
+-e .
 
 
